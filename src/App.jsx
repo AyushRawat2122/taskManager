@@ -1,15 +1,19 @@
 import Button from "./components/Button";
-import Tasks from "./pages/Tasks";
+import { Outlet, useLocation } from "react-router-dom";
 import { FaCalendarCheck, FaListAlt } from "react-icons/fa";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import React, { useState } from "react";
 import img from "../assets/img/logo.png";
 import { TaskProvider } from "./taskStore";
 import PopUp from "./components/PopUp";
+import { useNavigate } from "react-router-dom";
 function App() {
   const [active, setActive] = useState(false);
   const [tasks, setTask] = useState([]);
   const [completed, setCompleted] = useState([]);
+  const location = useLocation();
+  console.log(location);
+  
   const addTask = (title, desc) => {
     setTask([
       ...tasks,
@@ -43,6 +47,8 @@ function App() {
     setCompleted([...completed, element]);
     deleteTask(id);
   };
+  const Navigate = useNavigate();
+
   return (
     <>
       <TaskProvider
@@ -82,13 +88,13 @@ function App() {
                 >
                   Add Task +
                 </Button>
-                <Button className="hidden sm:block">My Tasks</Button>
-                <Button className="sm:hidden h-[9vw] w-[9vw] m-auto`">
+                <Button onClick={()=>{Navigate('/')}} className="hidden sm:block">My Tasks</Button>
+                <Button  onClick={()=>{Navigate('/')}}className="sm:hidden h-[9vw] w-[9vw] m-auto`">
                   {" "}
                   <FaListAlt className="text-2xl text-center w-full" />{" "}
                 </Button>
-                <Button className="hidden sm:block">Completed</Button>
-                <Button className="sm:hidden h-[9vw] w-[9vw] m-auto`">
+                <Button onClick={()=>{Navigate('/completed')}} className="hidden sm:block">Completed</Button>
+                <Button onClick={()=>{Navigate('/completed')}} className="sm:hidden h-[9vw] w-[9vw] m-auto`">
                   {" "}
                   <FaCalendarCheck className="text-2xl text-center w-full" />{" "}
                 </Button>
@@ -115,14 +121,14 @@ function App() {
           <div className="h-full w-[90%] sm:w-[85%]">
             <div className="pl-2 h-[8%] border-b border-borderDark flex flex-col justify-center items-start ">
               <h1 className="subG font-Inter text-xl sm:text-2xl md:text-3xl">
-                Tasks
+                {(location.pathname === '/')?"Tasks":"Completed"}
               </h1>
               <p className=" text-gray-400 text-base sm:text-lg md:text-xl">
-                tasks : {}
+                tasks : {(location.pathname === '/')?tasks.length:completed.length}
               </p>
             </div>
             <div className="h-[90%] w-full overflow-hidden relative">
-              <Tasks></Tasks>
+              <Outlet></Outlet>
               <Button className="absolute bottom-5 right-5 border border-gray-500 sm:hidden">
                 <MdFormatListBulletedAdd className="text-white h-[9vw] w-[9vw]" />
               </Button>

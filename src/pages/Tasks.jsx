@@ -6,7 +6,7 @@ const Tasks = () => {
     return (
         <div className="scrollable w-full h-full overflow-scroll overflow-x-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
             {
-              tasks.map((elem)=><TaskCard id={elem.id} value={elem}/>)
+              tasks.map((elem)=><TaskCard key={elem.id} value={elem}/>)
             }
       </div>
     );
