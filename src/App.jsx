@@ -129,7 +129,9 @@ function App() {
             </div>
             <div className="h-[90%] w-full overflow-hidden relative">
               <Outlet></Outlet>
-              <Button className="absolute bottom-5 right-5 border border-gray-500 sm:hidden">
+              <Button className="absolute bottom-5 right-5 border border-gray-500 sm:hidden" onClick={() => {
+                    setActive(true);
+                  }}>
                 <MdFormatListBulletedAdd className="text-white h-[9vw] w-[9vw]" />
               </Button>
             </div>
