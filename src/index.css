@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Gradient Heading */
+  .headG {
+    @apply text-transparent bg-clip-text font-bold;
+    background-image: linear-gradient(60deg, rgb(141, 0, 141), rgb(255, 208, 232));
+  }
+
+  /* Gradient Subheading */
+  .subG {
+    @apply text-transparent bg-clip-text font-semibold;
+    background-image: linear-gradient(60deg, rgb(208, 208, 208), rgb(96, 96, 96));
+  }
+
+  /* Gradient Button */
+  .btnG {
+    @apply text-white p-1 rounded-md font-medium;
+    background-image: linear-gradient(60deg, rgb(141, 0, 141), rgb(145, 67, 107));
+  }
+}
+
+@font-face {
+  font-family:"Inter";
+  src: url('../assets/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family:"DancingScript";
+  src: url('../assets/fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family:"Montserrat";
+  src: url('../assets/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal; 
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.animate{
+  transition: all ease-in-out .5s;
+}
+.animate:hover{
+  background-image: linear-gradient(60deg, rgb(141, 0, 141), rgb(151, 103, 128));
+  animation: gradientAnimation 6s infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 10px; /* Set width for vertical scrollbar */
+  height: 10px; /* Set height for horizontal scrollbar */
+}
+
+/* Style the track (background) */
+.scrollable::-webkit-scrollbar-track {
+  background: #130c17; /* Light gray background */
+  border-radius: 5px; /* Optional rounded corners */
+}
+
+/* Style the thumb (draggable part) */
+.scrollable::-webkit-scrollbar-thumb {
+  background: #28102b; /* Darker gray */
+  border-radius: 5px; /* Rounded corners */
+  max-height: 40px;
+  max-width: 40px;
+}
+.scrollable::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+  background:linear-gradient(90deg, rgb(141, 0, 141), rgb(145, 67, 107)) ; /* Darker shade on hover */
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Inverts colors to match dark backgrounds */
+}
+
+.popup-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.popup-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.popup-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.popup-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
