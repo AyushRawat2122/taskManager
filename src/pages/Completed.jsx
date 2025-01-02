@@ -1,6 +1,6 @@
 import React from "react";
 import useTask from "../taskStore";
-import TaskCard from "../components/TaskCard";
+import {TaskCard} from "../components/index";
 
 const Completed = () => {
     const {completed} = useTask();

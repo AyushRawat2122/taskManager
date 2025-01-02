@@ -1,19 +1,18 @@
-import Button from "./components/Button";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { FaCalendarCheck, FaListAlt } from "react-icons/fa";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import React, { useState } from "react";
 import img from "../assets/img/logo.png";
 import { TaskProvider } from "./taskStore";
-import PopUp from "./components/PopUp";
-import { useNavigate } from "react-router-dom";
+import { PopUp, Button } from "./components/index";
+
 function App() {
   const [active, setActive] = useState(false);
   const [tasks, setTask] = useState([]);
   const [completed, setCompleted] = useState([]);
   const location = useLocation();
   console.log(location);
-  
+
   const addTask = (title, desc) => {
     setTask([
       ...tasks,
@@ -88,13 +87,37 @@ function App() {
                 >
                   Add Task +
                 </Button>
-                <Button onClick={()=>{Navigate('/')}} className="hidden sm:block">My Tasks</Button>
-                <Button  onClick={()=>{Navigate('/')}}className="sm:hidden h-[9vw] w-[9vw] m-auto`">
+                <Button
+                  onClick={() => {
+                    Navigate("/");
+                  }}
+                  className="hidden sm:block"
+                >
+                  My Tasks
+                </Button>
+                <Button
+                  onClick={() => {
+                    Navigate("/");
+                  }}
+                  className="sm:hidden h-[9vw] w-[9vw] m-auto`"
+                >
                   {" "}
                   <FaListAlt className="text-2xl text-center w-full" />{" "}
                 </Button>
-                <Button onClick={()=>{Navigate('/completed')}} className="hidden sm:block">Completed</Button>
-                <Button onClick={()=>{Navigate('/completed')}} className="sm:hidden h-[9vw] w-[9vw] m-auto`">
+                <Button
+                  onClick={() => {
+                    Navigate("/completed");
+                  }}
+                  className="hidden sm:block"
+                >
+                  Completed
+                </Button>
+                <Button
+                  onClick={() => {
+                    Navigate("/completed");
+                  }}
+                  className="sm:hidden h-[9vw] w-[9vw] m-auto`"
+                >
                   {" "}
                   <FaCalendarCheck className="text-2xl text-center w-full" />{" "}
                 </Button>
@@ -121,17 +144,21 @@ function App() {
           <div className="h-full w-[90%] sm:w-[85%]">
             <div className="pl-2 h-[8%] border-b border-borderDark flex flex-col justify-center items-start ">
               <h1 className="subG font-Inter text-xl sm:text-2xl md:text-3xl">
-                {(location.pathname === '/')?"Tasks":"Completed"}
+                {location.pathname === "/" ? "Tasks" : "Completed"}
               </h1>
               <p className=" text-gray-400 text-base sm:text-lg md:text-xl">
-                tasks : {(location.pathname === '/')?tasks.length:completed.length}
+                tasks :{" "}
+                {location.pathname === "/" ? tasks.length : completed.length}
               </p>
             </div>
             <div className="h-[90%] w-full overflow-hidden relative">
               <Outlet></Outlet>
-              <Button className="absolute bottom-5 right-5 border border-gray-500 sm:hidden" onClick={() => {
-                    setActive(true);
-                  }}>
+              <Button
+                className="absolute bottom-5 right-5 border border-gray-500 sm:hidden"
+                onClick={() => {
+                  setActive(true);
+                }}
+              >
                 <MdFormatListBulletedAdd className="text-white h-[9vw] w-[9vw]" />
               </Button>
             </div>
