@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Button from "./Button";
 import { FaBell } from "react-icons/fa";
 import useTask from "../taskStore";
-const TaskCard = ({ value }) => {  
+const TaskCard = ({ value }) => {
   const ID = value.id;
-  const { iscomplete, heading, subHeading } = value;
+  const { isComplete, heading, subHeading } = value;
   const { markComplete, updateTask, deleteTask, completed } = useTask();
   const [head, setHead] = useState(heading);
   const [subHead, setSubHead] = useState(subHeading);
@@ -47,30 +47,32 @@ const TaskCard = ({ value }) => {
         }}
         disabled={enabled}
       />
-      {(iscomplete) ? (
-      ""
+      {isComplete ? (
+        ""
       ) : (
-        <div className="flex gap-2 mb-4 justify-center">
-        <Button className={`animate text-base`} onClick={MarkComplete}>
-          Mark Done
-        </Button>
-        <Button className={`animate text-base`} onClick={DeleteTask}>
-          Delete Task
-        </Button>
-        <Button className={`animate text-base`} onClick={UpdateTask}>
-          {!enabled ? "Save Task" : "Edit Task"}
-        </Button>
-      </div>
+        <>
+          <div className="flex gap-2 mb-4 justify-center">
+            <Button className={`animate text-base`} onClick={MarkComplete}>
+              Mark Done
+            </Button>
+            <Button className={`animate text-base`} onClick={DeleteTask}>
+              Delete Task
+            </Button>
+            <Button className={`animate text-base`} onClick={UpdateTask}>
+              {!enabled ? "Save Task" : "Edit Task"}
+            </Button>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="datetime-local"
+              className="bg-gray-800 text-primaryText text-sm py-1 px-2 rounded w-full placeholder-gray-400"
+            />
+            <Button className={`animate text-base`}>
+              <FaBell />
+            </Button>
+          </div>
+        </>
       )}
-      <div className="flex items-center gap-2">
-        <input
-          type="datetime-local"
-          className="bg-gray-800 text-primaryText text-sm py-1 px-2 rounded w-full placeholder-gray-400"
-        />
-        <Button className={`animate text-base`}>
-          <FaBell />
-        </Button>
-      </div>
     </div>
   );
 };

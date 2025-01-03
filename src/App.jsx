@@ -1,17 +1,26 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { FaCalendarCheck, FaListAlt } from "react-icons/fa";
 import { MdFormatListBulletedAdd } from "react-icons/md";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import img from "../assets/img/logo.png";
 import { TaskProvider } from "./taskStore";
 import { PopUp, Button } from "./components/index";
 
 function App() {
   const [active, setActive] = useState(false);
-  const [tasks, setTask] = useState([]);
-  const [completed, setCompleted] = useState([]);
+  const [tasks, setTask] = useState(() => {
+    const localTasks = localStorage.getItem("tasks");
+    return localTasks ? JSON.parse(localTasks) : [];
+  });
+  
+  const [completed, setCompleted] = useState(() => {
+    const localCompleted = localStorage.getItem("completed");
+    return localCompleted ? JSON.parse(localCompleted) : [];
+  });
   const location = useLocation();
-  console.log(location);
+
+  console.log(tasks,completed);
+  
 
   const addTask = (title, desc) => {
     setTask([
@@ -43,10 +52,17 @@ function App() {
   };
   const markComplete = (id) => {
     const element = tasks.find((elem) => elem.id === id);
+    element.isComplete = true;
     setCompleted([...completed, element]);
     deleteTask(id);
   };
   const Navigate = useNavigate();
+
+  useEffect(()=>{
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+    localStorage.setItem('completed',JSON.stringify(completed));
+  },[tasks,completed])
+
 
   return (
     <>
